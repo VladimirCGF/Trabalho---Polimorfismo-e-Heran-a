@@ -1,6 +1,7 @@
 package entities;
 
 import java.util.List;
+import java.util.Objects;
 
 public class PessoaFisica extends Pessoa {
 
@@ -33,6 +34,15 @@ public class PessoaFisica extends Pessoa {
         this.celular = celular;
     }
 
+    @Override
+    public void imprimir() {
+        System.out.println("ID: " + getId());
+        System.out.println("Nome: " + getNome());
+        System.out.println("Email: " + getEmail());
+        System.out.println("CPF: " + getCpf());
+        System.out.println("Celular: " + getCelular());
+    }
+
     public static void cadastrar(List<Pessoa> pessoas, Integer id, String nome, String email, String cpf, String celular) {
         PessoaFisica pessoaFisica = new PessoaFisica(id, nome, email, cpf, celular);
         pessoas.add(pessoaFisica);
@@ -46,5 +56,19 @@ public class PessoaFisica extends Pessoa {
                 "\nCPF: " + getCpf() +
                 "\nCelular: " + getCelular();
 
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        PessoaFisica that = (PessoaFisica) o;
+        return Objects.equals(cpf, that.cpf) && Objects.equals(celular, that.celular);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), cpf, celular);
     }
 }
